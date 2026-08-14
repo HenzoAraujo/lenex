@@ -11,5 +11,11 @@
 
   "icons": {
     "128": "icons/icon.png"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://web.whatsapp.com/*"],
+      "js": ["src/whatsapp/main.tsx"]
+    }
+  ]
 }

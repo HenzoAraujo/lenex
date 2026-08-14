@@ -1,4 +1,6 @@
-function Popup() {
+const manifest = chrome.runtime.getManifest();
+
+function Unlogged() {
   return (
     
     <div className="h-120 w-90 flex flex-col">
@@ -21,12 +23,13 @@ function Popup() {
         
         </form>
 
-        <h2 className="text-white absolute bottom-4 flex flex-row justify-center gap-1 border-t w-full text-center pt-4 border-[#2b2b2e]">Versão<p className="text-green-600">1.0.0</p></h2>
+        <h2 className="text-white absolute bottom-4 flex flex-row justify-center gap-1 border-t w-full text-center pt-4 border-[#2b2b2e]">Versão<p className="text-green-600">{manifest.version}</p></h2>
 
       </div>
 
     </div>
+
   )
 }
 
-export default Popup
+export default Unlogged

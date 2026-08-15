@@ -23,7 +23,7 @@ function Unlogged() {
         
         </form>
 
-        <h2 className="text-white absolute bottom-4 flex flex-row justify-center gap-1 border-t w-full text-center pt-4 border-[#2b2b2e]">Versão<p className="text-green-600">{manifest.version}</p></h2>
+        <h2 className="text-white text-xs absolute bottom-4 flex flex-row justify-center gap-1 border-t w-full text-center pt-4 border-[#2b2b2e]">Versão<p className="text-green-600">{manifest.version}</p></h2>
 
       </div>
 

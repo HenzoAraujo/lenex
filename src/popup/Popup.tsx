@@ -2,7 +2,7 @@ import Logged from "./Logged";
 import Unlogged from "./Unlogged";
 
 function Popup(){
-    const isLogged = false;
+    const isLogged = true;
 
     return(
       <>

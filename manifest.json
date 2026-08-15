@@ -6,7 +6,7 @@
   "version": "1.0.0",
 
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "src/popup/main.tsx"
   },
 
   "icons": {

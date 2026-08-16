@@ -1,3 +1,5 @@
+import { supabase } from '../utils/supabase'
+
 const manifest = chrome.runtime.getManifest();
 
 function Logged() {
@@ -19,7 +21,7 @@ function Logged() {
 
         <h2 className="text-white text-xs absolute bottom-4 flex flex-row justify-center gap-1 border-t w-full text-center pt-4 border-[#2b2b2e]">Versão<p className="text-green-600">{manifest.version}</p></h2>
         
-        <button className="absolute bottom-4 right-5 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" className="bi bi-door-open" viewBox="0 0 16 16"><path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/><path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/></svg></button>
+        <button className="absolute bottom-4 right-5 cursor-pointer" onClick={async () => { await supabase.auth.signOut() }}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" className="bi bi-door-open" viewBox="0 0 16 16"><path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/><path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/></svg></button>
 
       </div>
 

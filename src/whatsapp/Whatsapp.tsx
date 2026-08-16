@@ -9,8 +9,14 @@ function Whatsapp() {
   useEffect(() => {
     const whatsappRoot = document.querySelector<HTMLElement>("#app");
     if (!whatsappRoot) return;
+
     whatsappRoot.style.paddingTop = header;
     whatsappRoot.style.paddingLeft = sidebar;
+
+    return () => {
+      whatsappRoot.style.paddingTop = "";
+      whatsappRoot.style.paddingLeft = "";
+    };
   }, []);
 
   const buttons = [

@@ -1,32 +1,46 @@
-import { useEffect, useState } from 'react'
-import { supabase } from '../utils/supabase'
-import Logged from './Logged'
-import Unlogged from './Unlogged'
+import { useEffect, useState } from "react"
+import Logged from "./Logged"
+import Unlogged from "./Unlogged"
+import { supabase } from "../utils/supabase"
 
 function Popup() {
-  const [logged, setLogged] = useState(false)
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setLogged(!!data.session)
-    })
+    const [isLogged, setIsLogged] = useState(false)
 
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setLogged(!!session)
-      }
-    )
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data }) => {
+            setIsLogged(!!data.session)
+        });
+        const { data: listener } = supabase.auth.onAuthStateChange(
+            (_event, session) => {
+                setIsLogged(!!session)
+            }
+        );
 
-    return () => {
-      listener.subscription.unsubscribe()
-    }
-  }, [])
+        return () => {
+            listener.subscription.unsubscribe()
+        };
+    }, [])
 
-  if (logged) {
-    return <Logged />
-  }
 
-  return <Unlogged onLogin={() => setLogged(true)} />
+    useEffect(() => {
+        chrome.storage.local.set({
+            logged: isLogged
+        })
+
+        chrome.tabs.query(
+            { active: true, currentWindow: true },
+            (tabs) => {
+                if (tabs[0]?.id) {
+                    chrome.tabs.sendMessage(tabs[0].id, {
+                        type: "AUTH_STATE",
+                        logged: isLogged
+                    })
+                }
+            }
+        )
+    }, [isLogged])
+
+    return isLogged ? <Logged /> : <Unlogged />
 }
-
 export default Popup

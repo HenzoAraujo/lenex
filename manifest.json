@@ -1,37 +1,37 @@
 {
-  "manifest_version": 3,
-  "name": "Lenex",
-  "description": "CRM, Kanban, leads, workflows, agendamentos e WhatsApp em um só lugar.",
-  "version": "1.0.0",
-  "action": {
-    "default_popup": "index.html"
-  },
-  "icons": {
-    "128": "icons/icon.png"
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "https://web.whatsapp.com/*"
-      ],
-      "js": [
-        "src/whatsapp/main.tsx"
-      ]
-    }
-  ],
-  "permissions": [
-    "storage"
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "icons/*",
-        "images/*",
-        "fonts/*"
-      ],
-      "matches": [
-        "https://web.whatsapp.com/*"
-      ]
-    }
-  ]
+    "manifest_version": 3,
+    "name": "Lenex",
+    "version": "1.0.0",
+    "description": "CRM, Kanban, leads, workflows, agendamentos e WhatsApp em um só lugar.",
+    "action": {
+        "default_popup": "index.html"
+    },
+    "icons": {
+        "128": "icons/icon.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://web.whatsapp.com/*"
+            ],
+            "js": [
+                "src/whatsapp/main.tsx"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "icons/*",
+                "fonts/*"
+            ],
+            "matches": [
+                "https://web.whatsapp.com/*"
+            ]
+        }
+    ],
+    "permissions": [
+        "storage",
+        "tabs"
+    ]
 }

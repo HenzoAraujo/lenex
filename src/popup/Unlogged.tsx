@@ -1,38 +1,33 @@
-import { useState } from 'react'
-import { supabase } from '../utils/supabase'
+import { useState } from "react"
+import { supabase } from "../utils/supabase";
 
 const manifest = chrome.runtime.getManifest()
 
-type UnloggedProps = {
-  onLogin: () => void
-}
+function Unlogged() {
 
-function Unlogged({ onLogin }: UnloggedProps) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  async function handleLogin(event: React.SubmitEvent<HTMLFormElement>) {
 
-    setLoading(true)
-    setError('')
+    event.preventDefault();
+    setLoading(true);
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error: errorLogin } = await supabase.auth.signInWithPassword({
       email,
-      password,
+      password
     })
 
-    if (error) {
-      setLoading(false)
-      setError('Email ou senha incorretos!')
-      return
+    if (errorLogin) {
+      setError("Email ou senha incorretos.");
+      setLoading(false);
+      return;
     }
 
-    if (data.user) {
-      onLogin()
-    }
+    setLoading(false);
+
   }
 
   return (
@@ -51,10 +46,14 @@ function Unlogged({ onLogin }: UnloggedProps) {
 
         <form className="flex flex-col gap-2 w-3/4 text-sm" onSubmit={handleLogin}>
 
-          <input className="bg-white p-2" type="email" placeholder="Insira seu email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input className="bg-white p-2" type="password" placeholder="Insira sua senha" value={password} onChange={(e) => setPassword(e.target.value)} />
-          {error && (<p className="text-red-500 text-xs absolute bottom-18 self-center">{error}</p>)}
-          <button className="bg-green-500 font-bebas tracking-wider text-xl p-1.5 cursor-pointer shadow-green-800 shadow-[0_20px_80px_-5px_rgba(0,0,0,0.4)]  hover:bg-green-600 hover:scale-105 transition font-bold text-white" type="submit" disabled={loading}>{loading ? 'ENTRANDO...' : 'ENTRAR'}</button>
+          <input className="bg-white p-2" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Insira seu email" />
+          <input className="bg-white p-2" type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Insira sua senha" />
+          {error && (
+            <p className="text-red-500 text-xs text-center border rounded-xl bg-red-950 w-2/3 h-8 flex items-center justify-center self-center">
+              {error}
+            </p>
+          )}
+          <button className="bg-green-500 font-bebas tracking-wider text-xl p-1.5 cursor-pointer shadow-green-800 shadow-[0_20px_80px_-5px_rgba(0,0,0,0.4)]  hover:bg-green-600 hover:scale-105 transition font-bold text-white" disabled={loading} type="submit">{loading ? "Entrando..." : "Entrar"}</button>
 
         </form>
 
